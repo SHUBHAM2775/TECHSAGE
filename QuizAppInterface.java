@@ -59,9 +59,11 @@ public class QuizAppInterface extends JFrame {
         resultsButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         resultsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                System.out.println("Results button clicked"); // Debug line
                 openResult();
             }
         });
+            
 
         sidebarPanel.add(Box.createVerticalStrut(25)); // Spacer
         sidebarPanel.add(settingsButton);

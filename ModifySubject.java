@@ -53,9 +53,15 @@ public class ModifySubject extends JFrame {
         });
 
         // View Profiles button
-        JButton viewProfilesButton = createButton("View Profiles", 18f);
-        viewProfilesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        viewProfilesButton.setMaximumSize(new Dimension(200, 50));
+        JButton homebutton2 = createButton("Back to Home", 18f);
+        homebutton2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        homebutton2.setMaximumSize(new Dimension(200, 50));
+        homebutton2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                adminhome();
+            }
+        });
+
 
         // Logout button
         JButton logoutButton = createButton("Log Out", 18f);
@@ -77,7 +83,7 @@ public class ModifySubject extends JFrame {
         leftPanel.add(Box.createRigidArea(new Dimension(0, 40)));
         leftPanel.add(viewHistoryButton);
         leftPanel.add(Box.createRigidArea(new Dimension(0, 30)));
-        leftPanel.add(viewProfilesButton);
+        leftPanel.add(homebutton2);
         leftPanel.add(Box.createVerticalGlue());
         leftPanel.add(logoutButton);
         leftPanel.add(Box.createRigidArea(new Dimension(0, 50)));
@@ -257,6 +263,12 @@ private JTextField createTextField(String placeholder) {
         this.dispose();
         ExamHistory history = new ExamHistory();
         history.setVisible(true);
+    }
+
+    public void adminhome() {
+        this.dispose();
+        AdminDashboard home = new AdminDashboard();
+        home.setVisible(true);
     }
 
     public static void main(String[] args) {

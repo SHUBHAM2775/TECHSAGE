@@ -37,9 +37,10 @@ public class AdminDashboard extends JFrame {
         settingsButton.addActionListener(e -> viewHistory());
 
         // View Profiles button
-        JButton viewProfilesButton = createButton("View Profiles", 18f);
-        viewProfilesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        viewProfilesButton.setMaximumSize(new Dimension(200, 50));
+        JButton homebutton2 = createButton("Back to Home", 18f);
+        homebutton2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        homebutton2.setMaximumSize(new Dimension(200, 50));
+        homebutton2.addActionListener(e -> adminhome());
 
         // Logout button
         JButton logoutButton = createButton("Log Out", 18f);
@@ -54,7 +55,7 @@ public class AdminDashboard extends JFrame {
         leftPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         leftPanel.add(settingsButton);
         leftPanel.add(Box.createRigidArea(new Dimension(0, 30)));
-        leftPanel.add(viewProfilesButton);
+        leftPanel.add(homebutton2);
         leftPanel.add(Box.createVerticalGlue());
         leftPanel.add(logoutButton);
 
@@ -75,7 +76,7 @@ public class AdminDashboard extends JFrame {
         rightPanel.add(welcomeLabel, gbc);
 
         // Buttons for the admin panel
-        String[] buttonLabels = {"Modify Subject", "Add Question", "Remove Question"};
+        String[] buttonLabels = {"Modify Subject", "Modify Question"};
         int row = 1;
         for (String label : buttonLabels) {
             JButton button = createButton(label, 20f);
@@ -86,7 +87,7 @@ public class AdminDashboard extends JFrame {
             gbc.anchor = GridBagConstraints.CENTER;
 
             // Add action listener for "Add Subject" button
-            if (label.equals("Add Question")) {
+            if (label.equals("Modify Question")) {
                 button.addActionListener(e -> openAdminDashboard2());
             }
             if (label.equals("Modify Subject")) {
@@ -155,6 +156,11 @@ public class AdminDashboard extends JFrame {
         modifySubject.setVisible(true); // Open the new ModifySubject frame
     }
 
+    public void adminhome() {
+        this.dispose();
+        AdminDashboard home = new AdminDashboard();
+        home.setVisible(true);
+    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             AdminDashboard frame = new AdminDashboard();

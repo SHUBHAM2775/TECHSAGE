@@ -43,17 +43,17 @@ public class Scorecard extends JFrame {
         // Drop-down menu for choosing subjects
         String[] subjects = {"DSA" , "DBMS"};
         JComboBox<String> subjectsComboBox = createComboBox(subjects, "Choose Subject");
-        subjectsComboBox.setEnabled(true); // Make the combo box unselectable
+        subjectsComboBox.setEnabled(false); // Make the combo box unselectable
 
         // Drop-down menu for choosing difficulty level
         String[] difficultyLevels = {"Easy", "Moderate", "Tough"};
         JComboBox<String> difficultyComboBox = createComboBox(difficultyLevels, "Choose Difficulty");
-        difficultyComboBox.setEnabled(true); // Make the combo box unselectable
+        difficultyComboBox.setEnabled(false); // Make the combo box unselectable
 
         // Drop-down menu for choosing modules
         String[] modules = {"Module 1", "Module 2", "Module 3"};
         JComboBox<String> modulesComboBox = createComboBox(modules, "Choose Module");
-        modulesComboBox.setEnabled(true); // Make the combo box unselectable
+        modulesComboBox.setEnabled(false); // Make the combo box unselectable
 
         // Logout button
         JButton logoutButton = createButton("Log Out", 18f);

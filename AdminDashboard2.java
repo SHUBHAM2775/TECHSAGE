@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
 
@@ -44,9 +46,14 @@ public class AdminDashboard2 extends JFrame {
         });
 
         // View Profiles button
-        JButton viewProfilesButton = createButton("View Profiles", 18f);
-        viewProfilesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        viewProfilesButton.setMaximumSize(new Dimension(200, 50));
+        JButton homebutton2 = createButton("Back To Home", 18f);
+        homebutton2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        homebutton2.setMaximumSize(new Dimension(200, 50));
+        homebutton2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                adminhome();
+            }
+        });
 
         // Logout button
         JButton logoutButton = createButton("Log Out", 18f);
@@ -68,7 +75,7 @@ public class AdminDashboard2 extends JFrame {
         leftPanel.add(Box.createRigidArea(new Dimension(0, 40)));
         leftPanel.add(settingsButton);
         leftPanel.add(Box.createRigidArea(new Dimension(0, 30)));
-        leftPanel.add(viewProfilesButton);
+        leftPanel.add(homebutton2);
         leftPanel.add(Box.createVerticalGlue());
         leftPanel.add(logoutButton);
         leftPanel.add(Box.createRigidArea(new Dimension(0, 50)));
@@ -90,10 +97,17 @@ public class AdminDashboard2 extends JFrame {
         gbc.anchor = GridBagConstraints.NORTH;
         rightPanel.add(makeQuizLabel, gbc);
 
+        JTextField questionIDField = new JTextField("Question ID");
+        questionIDField.setPreferredSize(new Dimension(200, 40));
+        gbc.gridx = 3;
+        gbc.gridy = 1; // Place it in the first row above Subjects dropdown
+        gbc.gridwidth = 2;
+        rightPanel.add(questionIDField, gbc);
+
         // Add dropdowns for Subject and Module
-        JComboBox<String> subjectDropdown = new JComboBox<>(new String[] { "Subject", "DSA", "DBMS"});
+        JComboBox<String> subjectDropdown = new JComboBox<>(new String[] { "Subject", "DSA", "DBMS" });
         subjectDropdown.setPreferredSize(new Dimension(200, 40));
-        gbc.gridy = 1;
+        gbc.gridy = 1; // Set Subject dropdown to follow Question ID textbox
         gbc.gridwidth = 2;
         rightPanel.add(subjectDropdown, gbc);
         rightPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Vertical space after Subject dropdown
@@ -112,7 +126,7 @@ public class AdminDashboard2 extends JFrame {
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         rightPanel.add(questionField, gbc);
-        rightPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Vertical space after Question field
+        rightPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Add options as radio buttons with text fields
         JRadioButton option1RadioButton = new JRadioButton("Option 1");
@@ -143,7 +157,8 @@ public class AdminDashboard2 extends JFrame {
         // Create a ButtonGroup to ensure only one radio button can be selected
         ButtonGroup buttonGroup = new ButtonGroup();
 
-        // Add the radio buttons and their text fields to the options panel and button group
+        // Add the radio buttons and their text fields to the options panel and button
+        // group
         optionsPanel.add(option1RadioButton);
         option1TextField.setPreferredSize(new Dimension(200, 30)); // Set preferred size for option1TextField
         optionsPanel.add(option1TextField);
@@ -167,31 +182,43 @@ public class AdminDashboard2 extends JFrame {
         gbc.gridwidth = 2;
         rightPanel.add(optionsPanel, gbc);
 
-        // Add "Add Question" button
+        // Create a panel for the action buttons and set layout to FlowLayout for
+        // horizontal alignment
+        JPanel actionButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        actionButtonPanel.setBackground(Color.BLACK); // Match background with the rest of the panel
+
+        // Create the "Add Question" button
         JButton addQuestionButton = createButton("Add Question", 20f);
         addQuestionButton.setPreferredSize(new Dimension(250, 50));
-        gbc.gridx = 0; // Place the button in the first column
-        gbc.gridy = 6;
-        gbc.anchor = GridBagConstraints.SOUTHEAST;
-        rightPanel.add(addQuestionButton, gbc);
+        actionButtonPanel.add(addQuestionButton); // Add to the action button panel
 
-        // Add space between the buttons
-        gbc.gridy = 7; // Move to the next row
-        rightPanel.add(Box.createRigidArea(new Dimension(0, 20)), gbc); // Add vertical space
-
-        // Add "Add Bulk Question" button just below the "Add Question" button
+        // Create the "Add Bulk Question" button
         JButton addBulkQuestionButton = createButton("Add Bulk Qs", 20f);
         addBulkQuestionButton.setPreferredSize(new Dimension(250, 50));
-        gbc.gridy = 8; // Place the button in the row below the space
-        gbc.anchor = GridBagConstraints.NORTHEAST; // Adjust anchor to place it below the "Add Question" button
-        rightPanel.add(addBulkQuestionButton, gbc);
-
         addBulkQuestionButton.addActionListener(new ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(ActionEvent evt) {
                 BulkQuestionUpload bq = new BulkQuestionUpload();
                 bq.addBulkQuestion(01, "02");
             }
         });
+        actionButtonPanel.add(addBulkQuestionButton); // Add to the action button panel
+
+        // Create the "Remove Question" button
+        JButton removeQuestionButton = createButton("Remove Question", 20f);
+        removeQuestionButton.setPreferredSize(new Dimension(250, 50));
+        removeQuestionButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Implement your remove question logic here
+            }
+        });
+        actionButtonPanel.add(removeQuestionButton); // Add to the action button panel
+
+        // Add actionButtonPanel to the right panel at the desired location
+        gbc.gridx = 0; // Align with other elements
+        gbc.gridy = 6; // Place at the desired vertical position
+        gbc.gridwidth = 2; // Span across two columns if necessary
+        gbc.anchor = GridBagConstraints.CENTER; // Center alignment within the rightPanel
+        rightPanel.add(actionButtonPanel, gbc);
 
         ImageIcon logoIcon = new ImageIcon(
                 "C:\\Users\\Shubham Upadhyay\\OneDrive\\Desktop\\VS CODE\\Practice\\OTHER-CLG\\JAVA-MPR\\TechSage.Logo.jpg");
@@ -234,11 +261,19 @@ public class AdminDashboard2 extends JFrame {
         mainPage.setVisible(true);
         // Add your actual navigation code here
     }
+
     public void openHistory() {
         this.dispose();
         ExamHistory history = new ExamHistory();
         history.setVisible(true);
     }
+
+    public void adminhome() {
+        this.dispose();
+        AdminDashboard home = new AdminDashboard();
+        home.setVisible(true);
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new AdminDashboard2().setVisible(true);
