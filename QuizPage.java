@@ -280,25 +280,24 @@ public class QuizPage extends JFrame {
     private void loadQuizData(String subject, String level, String module) {
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/mpr", "root", "shubham1332");
-
             Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
+    
             int subID = subject.equalsIgnoreCase("DSA") ? 1 : 2; // Assuming 1 for DSA, 2 for DBMS
-            //int m = Integer.parseInt(module);
-             String query = "SELECT QUES, MCQ1, MCQ2, MCQ3, MCQ4, CORRECT_ANS FROM QUESTION WHERE SUB_ID = " + subID +
-                              " ORDER BY RAND() LIMIT 10";
-
-           // String query = "SELECT QUES, MCQ1, MCQ2, MCQ3, MCQ4, CORRECT_ANS WHERE SUB_ID = " + subID + "and Module =" + m + ";";
-
+            int modID = Integer.parseInt(module.replaceAll("\\D+", "")); // Remove non-digits, then parse
+    
+            // Query updated to filter questions by both subject and module
+            String query = "SELECT QUES, MCQ1, MCQ2, MCQ3, MCQ4, CORRECT_ANS FROM QUESTION WHERE SUB_ID = " + subID +
+                           " AND MODULE = " + modID + " ORDER BY RAND() LIMIT 10";
+    
             ResultSet rs = st.executeQuery(query);
             rs.last();
             int totalQuestions = rs.getRow();
             rs.beforeFirst(); // Reset cursor
-
+    
             quizData = new String[totalQuestions][6]; // 5 MCQs + 1 Question
             correctAnswersArray = new String[totalQuestions]; // Array to hold correct answers
             userAnswers = new String[totalQuestions]; // Array to hold user answers
-
+    
             int index = 0;
             while (rs.next()) {
                 quizData[index][0] = rs.getString("QUES");
@@ -309,10 +308,14 @@ public class QuizPage extends JFrame {
                 correctAnswersArray[index] = rs.getString("CORRECT_ANS"); // Store the correct answer
                 index++;
             }
+            rs.close();
+            st.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             QuizPage quizPage = new QuizPage("DSA", "Level 1", "Module 1");

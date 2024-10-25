@@ -97,17 +97,10 @@ public class AdminDashboard2 extends JFrame {
         gbc.anchor = GridBagConstraints.NORTH;
         rightPanel.add(makeQuizLabel, gbc);
 
-        JTextField questionIDField = new JTextField("Question ID");
-        questionIDField.setPreferredSize(new Dimension(200, 40));
-        gbc.gridx = 3;
-        gbc.gridy = 1; // Place it in the first row above Subjects dropdown
-        gbc.gridwidth = 2;
-        rightPanel.add(questionIDField, gbc);
-
         // Add dropdowns for Subject and Module
         JComboBox<String> subjectDropdown = new JComboBox<>(new String[] { "Subject", "DSA", "DBMS" });
         subjectDropdown.setPreferredSize(new Dimension(200, 40));
-        gbc.gridy = 1; // Set Subject dropdown to follow Question ID textbox
+        gbc.gridy = 1;
         gbc.gridwidth = 2;
         rightPanel.add(subjectDropdown, gbc);
         rightPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Vertical space after Subject dropdown
@@ -126,7 +119,7 @@ public class AdminDashboard2 extends JFrame {
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         rightPanel.add(questionField, gbc);
-        rightPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        rightPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Vertical space after Question field
 
         // Add options as radio buttons with text fields
         JRadioButton option1RadioButton = new JRadioButton("Option 1");
@@ -204,14 +197,14 @@ public class AdminDashboard2 extends JFrame {
         actionButtonPanel.add(addBulkQuestionButton); // Add to the action button panel
 
         // Create the "Remove Question" button
-        JButton removeQuestionButton = createButton("Remove Question", 20f);
-        removeQuestionButton.setPreferredSize(new Dimension(250, 50));
-        removeQuestionButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Implement your remove question logic here
-            }
-        });
-        actionButtonPanel.add(removeQuestionButton); // Add to the action button panel
+        // JButton removeQuestionButton = createButton("Remove Question", 20f);
+        // removeQuestionButton.setPreferredSize(new Dimension(250, 50));
+        // removeQuestionButton.addActionListener(new ActionListener() {
+        //     public void actionPerformed(ActionEvent e) {
+        //         // Implement your remove question logic here
+        //     }
+        // });
+        // actionButtonPanel.add(removeQuestionButton); // Add to the action button panel
 
         // Add actionButtonPanel to the right panel at the desired location
         gbc.gridx = 0; // Align with other elements

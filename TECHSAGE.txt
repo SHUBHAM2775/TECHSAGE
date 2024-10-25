@@ -1,0 +1,122 @@
+CREATE TABLE USERS(
+USERID INT PRIMARY KEY,
+PHONE_NO INT,
+USERNAME varchar(15) UNIQUE, 
+PASS_WORD INT not null,
+COLLEGE_NAME varchar(15),
+EMAIL varchar(20)
+);
+
+INSERT INTO USERS VALUES
+(127,'S_SIDDHI',1234,'TSEC','S@GMAIL.COM'),
+(130,'S_NITYA',234,'TSEC','N@GMAIL.COM'),
+(137,'U_SHUBHAM',543,'TSEC','U@GMAIL.COM'),
+(91,'C_MIHIR',7896,'TSEC','M@GMAIL.COM');
+
+SELECT * FROM USERS;
+
+CREATE TABLE SUBJECT(
+SUB_ID INT PRIMARY KEY,
+SUB_NAME varchar(10) PRIMARY KEY,
+NO_MODULE INT,
+SEMESTER INT
+);
+
+INSERT INTO SUBJECT VALUES
+(1,'DSA'),
+(2,'DBMS');
+
+SELECT * FROM SUBJECT;
+
+CREATE TABLE QUESTION(
+  QUESID VARCHAR(15) PRIMARY KEY,
+  SUB_ID INT,
+  MODULE INT,
+  QUES VARCHAR(255),
+  MCQ1 VARCHAR(255),
+  MCQ2 VARCHAR(255),
+  MCQ3 VARCHAR(255),
+  MCQ4 VARCHAR(255),
+  MARKS INT,
+  CORRECT_ANS VARCHAR(150),
+  FOREIGN KEY (SUB_ID) REFERENCES SUBJECT (SUB_ID)
+);
+
+INSERT INTO QUESTION VALUES
+('DSA01001',1,1,'In the worst case, a binary search tree will take how much time to search an element?','O(n)','O(logn)','O(n^2)','O(nlogn)',1,'O(n)'),
+('DSA01002',1,1,'When the left sub-tree of a tree is one level higher than that of right sub-tree, then the balance factor is','0','1','-1','2',1,'1'),
+('DSA01003',1,1,'Which of the following tree data structures is not a balanced binary tree?','Splay tree','B-tree','AVL tree','Red-black tree',1,'B-tree'),
+('DSA01004',1,1,'Which of the following is the most widely used external memory data structure?','B-tree','Red-black tree','AVL tree','Both AVL tree and Red-black tree',1,'B-tree'),
+('DSA01005',1,1,'What is an AVL tree?','a tree which is unbalanced and is a height balanced tree','a tree which is balanced and is a height balanced tree','a tree with atmost 3 children','a tree with three children',1,'a tree which is balanced and is a height balanced tree'),
+('DSA01006',1,1,'In a binary search tree, which of the following traversals would print the numbers in the ascending order?','Level-order traversal','Pre-order traversal','Post-order traversal','In-order traversal',1,'In-order traversal'),
+('DSA01007',1,1,'B-tree of order n is a order-n multiway tree in which each non-root node contains __________','at most (n – 1)/2 keys','exact (n – 1)/2 keys','at least 2n keys','at least (n – 1)/2 keys',1,'at least (n – 1)/2 keys'),
+('DSA01008',1,1,'A B-tree of order 4 and of height 3 will have a maximum of _______ keys.','255','63','127','188',1,'255'),
+('DSA01009',1,1,'Which of the following is true?','larger the order of B-tree, less frequently the split occurs','larger the order of B-tree, more frequently the split occurs','smaller the order of B-tree, more frequently the split occurs','smaller the order of B-tree, less frequently the split occurs',1,'larger the order of B-tree, less frequently the split occurs'),
+('DSA01010',1,1,'The number of edges from the node to the deepest leaf is called _________ of the tree.','Height','Depth','Length','Width',1,'Height'),
+('DSA01011',1,1,'What is a full binary tree?','Each node has exactly zero or two children','Each node has exactly two children','All the leaves are at the same level','Each node has exactly one or two children',1,'Each node has exactly zero or two children'),
+('DBMS01001',2,1,'Consider money is transferred from (1)account-A to account-B and (2) account-B to account-A. Which of the following form a transaction?','Only 1','Only 2','Both 1 and 2 individually','Either 1 or 2',1,'Both 1 and 2'),
+('DBMS01002',2,1,'A transaction is delimited by statements (or function calls) of the form __________','Begin transaction and end transaction','Start transaction and stop transaction','Get transaction and post transaction','Read transaction and write transaction',1,'Begin transaction and end transaction'),
+('DBMS01003',2,1,'Identify the characteristics of transactions','Atomicity','Durability','Isolation','All of the mentioned',1,'All of the mentioned'),
+('DBMS01004',2,1,'Which of the following has "all-or-none" property?','Atomicity','Durability','Isolation','All of the mentioned',1,'Atomicity'),
+('DBMS01005',2,1,'The database system must take special actions to ensure that transactions operate properly without interference from concurrently executing database statements. This property is referred to as','Atomicity','Durability','Isolation','All of the mentioned',1,'Isolation'),
+('DBMS01006',2,1,'The property of a transaction that persists all the crashes is','Atomicity','Durability','Isolation','All of the mentioned',1,'Durability'),
+('DBMS01007',2,1,'__________ states that only valid data will be written to the database.','Consistency','Atomicity','Durability','Isolation',1,'Consistency'),
+('DBMS01008',2,1,'Transaction processing is associated with everything below except','Producing detail summary or exception reports','Recording a business activity','Confirming an action or triggering a response','Maintaining a data',1,'Confirming an action or triggering a response'),
+('DBMS01009',2,1,'The Oracle RDBMS uses the ____ statement to declare a new transaction start and its properties.','BEGIN','SET TRANSACTION','BEGIN TRANSACTION','COMMIT',1,'SET TRANSACTION'),
+('DBMS01010',2,1,'____ means that the data used during the execution of a transaction cannot be used by a second transaction until the first one is completed.','Consistency','Atomicity','Durability','Isolation',1,'Isolation'),
+('DBMS01011',2,1,'In SQL, which command is used to issue multiple CREATE TABLE, CREATE VIEW and GRANT statements in a single transaction?','CREATE PACKAGE','CREATE SCHEMA','CREATE CLUSTER','All of the mentioned',1,'CREATE SCHEMA'),
+('DBMS01012',2,1,'In SQL, the CREATE TABLESPACE is used','To create a place in the database for storage of scheme objects, rollback segments, and naming the data files to comprise the tablespace','To create a database trigger','To add/rename data files, to change storage','All of the mentioned',1,'To create a place in the database for storage of scheme objects, rollback segments, and naming the data files to comprise the tablespace'),
+('DBMS01013',2,1,'Which character function can be used to return a specified portion of a character string?','INSTR','SUBSTRING','SUBSTR','POS',1,'SUBSTR'),
+('DBMS01014',2,1,'Which of the following is TRUE for the System Variable $date$?','Can be assigned to a global variable','Can be assigned to any field only during design time','Can be assigned to any variable or field during run time','Can be assigned to a local variable',1,'Can be assigned to any field only during design time'),
+('DBMS01015',2,1,'What are the different events in Triggers?','Define, Create','Drop, Comment','Insert, Update, Delete','Select,Commit',1,'Insert, Update, Delete');
+
+
+SELECT * FROM QUESTION;
+
+CREATE TABLE MODULE(
+MOD_ID INT PRIMARY KEY,
+SUB_ID INT,
+LEVEL varchar(6)
+);
+
+INSERT INTO MODULE VALUES
+(1001,1,'Easy'),
+(1002,2,'Medium'),
+(1003,2,'Hard');
+
+SELECT * FROM MODULE;
+
+CREATE TABLE EXAM(
+TESTID varchar(10) PRIMARY KEY,
+MOD_ID INT,
+SUB_ID INT,
+USERID INT,
+MARKS INT,
+FOREIGN KEY (SUB_ID) REFERENCES SUBJECT (SUB_ID),
+FOREIGN KEY (MOD_ID) REFERENCES MODULE (MOD_ID),
+FOREIGN KEY (USERID) REFERENCES USERS (USERID)
+);
+
+INSERT INTO EXAM VALUES
+(1001,1,91,8);
+
+SELECT * FROM EXAM; 
+
+CREATE TABLE EXAM_HISTORY(
+HISTORY_ID INT PRIMARY KEY,
+USERID INT,
+TESTID varchar(10),
+MOD_ID INT,
+LEVEL varchar(10),
+ATTEMPTS INT,
+CORRECT INT,
+WRONG INT,
+SUB_ID INT,
+FOREIGN KEY (SUB_ID) REFERENCES SUBJECT (SUB_ID),
+-- FOREIGN KEY(TESTID) REFERENCES EXAM(TESTID),
+FOREIGN KEY(USERID) REFERENCES USERS (USERID)
+);
+
+SELECT * FROM EXAM_HISTORY;
+
+-- DELETE FROM USERS WHERE ID = 2;	

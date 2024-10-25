@@ -14,7 +14,7 @@ public class BulkQuestionUpload {
         try {
             connection = DriverManager.getConnection(jdbcURL, username, password);
             connection.setAutoCommit(false);
-            String sql = "INSERT INTO QUESTION (QUESID, SUB_ID, QUES, MCQ1, MCQ2, MCQ3, MCQ4, MARKS, CORRECT_ANS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO QUESTION (QUESID, SUB_ID, MODULE, QUES, MCQ1, MCQ2, MCQ3, MCQ4, MARKS, CORRECT_ANS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -40,6 +40,7 @@ public class BulkQuestionUpload {
                 }
                 String Ques_ID = "DSA" + mid + "0" + data[0];
                 int SUB_ID = sid;
+                int MODULE = Integer.parseInt(mid);
                 String QUES = data[1];
                 String MCQ1 = data[2];
                 String MCQ2 = data[3];
@@ -49,6 +50,7 @@ public class BulkQuestionUpload {
                 String CORRECT_ANS = data[6];
 
                 statement.setString(1, Ques_ID);
+                statement.setInt(2, MODULE);
                 statement.setInt(2, SUB_ID);
                 statement.setString(3, QUES);
                 statement.setString(4, MCQ1);
