@@ -1,0 +1,12 @@
+Question No.,Question,Option 1,Option 2,Option 3,Option 4,Correct answer
+,,,,,,
+1,What is a data structure?,A programming language,A collection of algorithms,A way to store and organize data,A type of computer hardware,A way to store and organize data
+2,What are the disadvantages of arrays?,Index value of an array can be negative,Elements are sequentially accessed,Data structure like queue or stack cannot be implemented,There are chances of wastage of memory space if elements inserted in an array are lesser than the allocated size,There are chances of wastage of memory space if elements inserted in an array are lesser than the allocated size
+3,Which of the following is not the application of stack?,Data Transfer between two asynchronous process,Compiler Syntax Analyzer,Tracking of local variables at run time,A parentheses balancing program,Data Transfer between two asynchronous process
+4,The data structure required to check whether an expression contains a balanced parenthesis is?,Queue,Stack,Tree,Array,Stack
+5,Which of the following statement(s) about stack data structure is/are NOT correct?,Top of the Stack always contain the new node,Stack is the FIFO data structure,Null link is present in the last node at the bottom of the stack,Linked List are used for implementing Stacks,Stack is the FIFO data structure
+6,Which data structure is based on the Last In First Out (LIFO) principle?,Tree,Linked List,Stack,Queue,Stack
+7,Which of the following application makes use of a circular linked list?,Recursive function calls,Undo operation in a text editor,Implement Hash Tables,Allocating CPU to resources,Allocating CPU to resources
+8,What is a bit array?,Data structure that compactly stores bits,Data structure for representing arrays of records,Array in which elements are not present in continuous locations,An array in which most of the elements have the same value,Data structure that compactly stores bits
+9,Which of the following is not the type of queue?,Priority Queue,Circular Queue,Singly ended Queue,Ordinary Queue,Singly ended Queue
+10,What is the need for a circular queue?,easier computations,implement LIFO principle in queues,effective usage of memory,to delete elements based on priority,effective usage of memory
