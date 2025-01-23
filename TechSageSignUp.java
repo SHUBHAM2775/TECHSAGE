@@ -80,6 +80,13 @@ public class TechSageSignUp extends JFrame {
                 String password = new String(passwordField.getPassword());
                 String confirmPassword = new String(confirmPasswordField.getPassword());
 
+                if(phone.length()!=10)
+                {
+                    JOptionPane.showMessageDialog(null, "Phone number should be of 10 digits", "Error", JOptionPane.ERROR_MESSAGE);
+                    phoneField.setText("");
+                }
+                
+
                 // Check if passwords match
                 if (!password.equals(confirmPassword)) {
                     JOptionPane.showMessageDialog(null, "Passwords do not match! Please re-enter your password.", "Error", JOptionPane.ERROR_MESSAGE);

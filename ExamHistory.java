@@ -79,7 +79,7 @@ public class ExamHistory extends JFrame {
         String[] columnNames = {"Past Tests", "Marks", "Subjects"};
         Object[][] data = fetchExamHistoryData(); // Fetch data from the database
 
-        JTable table = new JTable(fetchExamHistoryData(), columnNames);
+        JTable table = new JTable(data, columnNames);
         table.setRowHeight(50);
         table.setFont(new Font("SansSerif", Font.PLAIN, 20));
         table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 24));
@@ -107,50 +107,45 @@ public class ExamHistory extends JFrame {
     // Method to fetch exam history data from the database
     private Object[][] fetchExamHistoryData() {
         Object[][] data = {};
-    
+
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mpr", "root", "shubham1332");
              Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
              ResultSet rs = stmt.executeQuery("SELECT TESTID, CORRECT, ATTEMPTS, SUB_ID FROM EXAM_HISTORY")) {
-    
+
             rs.last();
             int rowCount = rs.getRow();
             rs.beforeFirst();
             data = new Object[rowCount][3]; // Ensure we have three columns
-    
+
             int rowIndex = 0;
             while (rs.next()) {
                 String testID = rs.getString("TESTID");
                 int correct = rs.getInt("CORRECT");
                 int attempts = rs.getInt("ATTEMPTS");
                 String marks = correct + "/" + attempts;
-    
+
                 // Get the subject name based on SUB_ID
-                String subject;
-                int subId = rs.getInt("SUB_ID");
-                switch (subId) {
-                    case 1:
-                        subject = "DSA";
-                        break;
-                    case 2:
-                        subject = "DBMS";
-                        break;
-                    default:
-                        subject = "Unknown"; // Handle other cases
-                }
-    
+                String subject="DSA";
+                // int subId = rs.getInt("SUB_ID");
+                // if (subId == 1) {
+                //     subject = "DSA";
+                // } else if (subId == 2) {
+                //     subject = "DBMS";
+                // } 
+                // else {
+                //     subject = "Unknown"; // Handle other cases
+                // }
+
                 data[rowIndex][0] = testID; // Past Tests column
                 data[rowIndex][1] = marks;   // Marks column
                 data[rowIndex][2] = subject;  // Updated Subjects column
-    
-                // Logging to check values being added
-                System.out.println("Row " + rowIndex + ": " + testID + ", " + marks + ", " + subject);
-    
+
                 rowIndex++;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    
+
         return data;
     }  
 

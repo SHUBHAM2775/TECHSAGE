@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class QuizAppInterface extends JFrame {
     private String[][] quizData;
@@ -22,6 +24,7 @@ public class QuizAppInterface extends JFrame {
         sidebarPanel.setLayout(new BoxLayout(sidebarPanel, BoxLayout.Y_AXIS));
 
         sidebarPanel.add(Box.createVerticalStrut(25)); // Spacer
+
         // Custom JLabel for user icon
         ImageIcon originalIcon = new ImageIcon("C:\\Users\\Shubham Upadhyay\\OneDrive\\Desktop\\VS CODE\\Practice\\OTHER-CLG\\JAVA-MPR\\BlueA.png");
         Image iconImage = originalIcon.getImage();
@@ -45,10 +48,10 @@ public class QuizAppInterface extends JFrame {
         settingsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         settingsButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         settingsButton.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            viewHistory();
-        }
-    });
+            public void actionPerformed(ActionEvent e) {
+                viewHistory();
+            }
+        });
 
         JButton resultsButton = new JButton("Results");
         resultsButton.setPreferredSize(new Dimension(180, 60)); // Increased size
@@ -59,11 +62,9 @@ public class QuizAppInterface extends JFrame {
         resultsButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         resultsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Results button clicked"); // Debug line
                 openResult();
             }
         });
-            
 
         sidebarPanel.add(Box.createVerticalStrut(25)); // Spacer
         sidebarPanel.add(settingsButton);
@@ -109,11 +110,10 @@ public class QuizAppInterface extends JFrame {
         mainContentPanel.add(makeYourQuizLabel);
 
         // Dropdowns and Continue button
-        String[] subjects = { "Subject", "DSA", "DBMS"};
         String[] levels = { "Level", "Easy", "Medium", "Hard" };
         String[] modules = {"Module 1", "Module 2", "Module 3", "Module 4"};
 
-        JComboBox<String> subjectComboBox = new JComboBox<>(subjects);
+        JComboBox<String> subjectComboBox = new JComboBox<>(getSubjectsFromDatabase());
         subjectComboBox.setBounds(550, 500, 225, 40);
 
         JComboBox<String> levelComboBox = new JComboBox<>(levels);
@@ -138,7 +138,6 @@ public class QuizAppInterface extends JFrame {
         add(mainContentPanel, BorderLayout.CENTER);
 
         // Action for the "Continue" button
-        // Inside QuizAppInterface class
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -146,39 +145,39 @@ public class QuizAppInterface extends JFrame {
                 String level = (String) levelComboBox.getSelectedItem();
                 String module = (String) moduleComboBox.getSelectedItem();
 
-                // Pass subject, level, and module to the new QuizPage
                 new QuizPage(subject, level, module).setVisible(true);
 
-                // Close the selection window
                 dispose();
             }
         });
 
     }
 
-    public void loadQuizPanel(String subject, String level, String module) {
-        // Sample questions for this example
-        if (subject.equals("DBMS") && level.equals("Easy") && module.equals("Mod 2: ER")) {
-            quizData = new String[][] {
-                    { "Q1] Which of the following are constraints on ER?", "Cardinality", "Disjoint", "Entity",
-                            "Relationship" },
-                    { "Q2] What is an ER Model?", "Diagram", "Representation", "Data", "Entity" },
-                    // More questions...
-            };
+    // Method to retrieve subjects from database
+    private String[] getSubjectsFromDatabase() {
+        ArrayList<String> subjectsList = new ArrayList<>();
+        subjectsList.add("Subject"); // Default entry
+
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mpr", "root", "shubham1332");
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT SUB_NAME FROM SUBJECT");
+
+            while (rs.next()) {
+                subjectsList.add(rs.getString("SUB_NAME"));
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        setupQuizLayout();
-        updateQuizContent();
+
+        return subjectsList.toArray(new String[0]);
     }
 
-    private void setupQuizLayout() {
-        // Set up quiz layout (question, options, buttons, etc.)
-        // ...
-    }
-
-    private void updateQuizContent() {
-        // Update question and options based on the current index
-        // ...
-    }
+    
     public void openResult(){
         this.dispose();
         Scorecard selection = new Scorecard();
@@ -192,9 +191,7 @@ public class QuizAppInterface extends JFrame {
     }
 
     public void openHomePage() {
-        // Close current window
         this.dispose();
-        // Open Main frame
         TechSageMain mainPage = new TechSageMain();
         mainPage.setVisible(true);
     }

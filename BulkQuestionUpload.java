@@ -50,15 +50,15 @@ public class BulkQuestionUpload {
                 String CORRECT_ANS = data[6];
 
                 statement.setString(1, Ques_ID);
-                statement.setInt(2, MODULE);
                 statement.setInt(2, SUB_ID);
-                statement.setString(3, QUES);
-                statement.setString(4, MCQ1);
-                statement.setString(5, MCQ2);
-                statement.setString(6, MCQ3);
-                statement.setString(7, MCQ4);
-                statement.setInt(8, MARKS);
-                statement.setString(9, CORRECT_ANS);
+                statement.setInt(3, MODULE);
+                statement.setString(4, QUES);
+                statement.setString(5, MCQ1);
+                statement.setString(6, MCQ2);
+                statement.setString(7, MCQ3);
+                statement.setString(8, MCQ4);
+                statement.setInt(9, MARKS);
+                statement.setString(10, CORRECT_ANS);
 
                 statement.executeUpdate();
             }
